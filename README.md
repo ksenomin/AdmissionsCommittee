@@ -1,0 +1,2 @@
+# AdmissionsCommittee
+Приёмная комиссия
