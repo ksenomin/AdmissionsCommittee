@@ -64,12 +64,14 @@
             EditToolStripMenuItem.Name = "EditToolStripMenuItem";
             EditToolStripMenuItem.Size = new Size(125, 24);
             EditToolStripMenuItem.Text = "Редактировать";
+            EditToolStripMenuItem.Click += EditToolStripMenuItem_Click;
             // 
             // DeleteToolStripMenuItem
             // 
             DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
             DeleteToolStripMenuItem.Size = new Size(79, 24);
             DeleteToolStripMenuItem.Text = "Удалить";
+            DeleteToolStripMenuItem.Click += DeleteToolStripMenuItem_Click;
             // 
             // statusStrip
             // 

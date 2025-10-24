@@ -118,7 +118,7 @@ namespace AdmissionComitteeDataGrid.Forms
                 age--;
             }
 
-            if (age < 16 || age > 25)
+            if (age < 16 || age > 30)
             {
                 errorProvider.SetError(dateTimePickerBirthDate, "Возраст должен быть от 16 до 100 лет!");
                 isValid = false;
@@ -162,6 +162,33 @@ namespace AdmissionComitteeDataGrid.Forms
             if (MessageBox.Show("Вы уверены, что хотите отменить?", "Отмена", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Close();
+            }
+        }
+
+        private void buttonAddOrEdit_Click_1(object sender, EventArgs e)
+        {
+            if (!ValidateForm())
+            {
+                return;
+            }
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void buttonCancel_Click_1(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Отменить изменения?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Close();
+            }
+        }
+
+        private void textBoxFullName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '-')
+            {
+                e.Handled = true;
             }
         }
     }

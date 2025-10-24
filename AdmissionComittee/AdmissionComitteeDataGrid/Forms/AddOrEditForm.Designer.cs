@@ -55,6 +55,7 @@
             textBoxFullName.Name = "textBoxFullName";
             textBoxFullName.Size = new Size(223, 27);
             textBoxFullName.TabIndex = 0;
+            textBoxFullName.KeyPress += textBoxFullName_KeyPress;
             // 
             // labelFullName
             // 
@@ -171,6 +172,7 @@
             buttonAddOrEdit.TabIndex = 14;
             buttonAddOrEdit.Text = "buttonAddOrEdit";
             buttonAddOrEdit.UseVisualStyleBackColor = true;
+            buttonAddOrEdit.Click += buttonAddOrEdit_Click_1;
             // 
             // buttonCancel
             // 
@@ -180,6 +182,7 @@
             buttonCancel.TabIndex = 15;
             buttonCancel.Text = "Отмена";
             buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click_1;
             // 
             // AddOrEditForm
             // 
