@@ -31,16 +31,37 @@ namespace AdmissionComitteeDataGrid
             applicantsBinding.DataSource = applicantsList;
             dataGridView.DataSource = applicantsBinding;
 
-            dataGridView.Columns[nameof(Applicant.Id)].Visible = false;
+            // Скрытие колонок
+            var hiddenColumns = new[] { nameof(Applicant.Id), nameof(Applicant.Gender), nameof(Applicant.StudyForm) };
+            foreach (var colName in hiddenColumns)
+            {
+                if (dataGridView.Columns[colName] != null)
+                {
+                    dataGridView.Columns[colName].Visible = false;
 
-            dataGridView.Columns[nameof(Applicant.FullName)].HeaderText = "ФИО";
-            dataGridView.Columns[nameof(Applicant.Gender)].HeaderText = "Пол";
-            dataGridView.Columns[nameof(Applicant.BirthDay)].HeaderText = "Дата рождения";
-            dataGridView.Columns[nameof(Applicant.StudyForm)].HeaderText = "Форма обучения";
-            dataGridView.Columns[nameof(Applicant.MathScore)].HeaderText = "ЕГЭ (Математика)";
-            dataGridView.Columns[nameof(Applicant.RussianScore)].HeaderText = "ЕГЭ (Русский)";
-            dataGridView.Columns[nameof(Applicant.InformaticScore)].HeaderText = "ЕГЭ (Информатика)";
-            dataGridView.Columns[nameof(Applicant.TotalScore)].HeaderText = "Сумма баллов";
+                }
+            }
+
+            // Заголовки для отображаемых колонок
+            var headers = new Dictionary<string, string>
+            {
+                { nameof(Applicant.FullName), "ФИО" },
+                { nameof(Applicant.BirthDay), "Дата рождения" },
+                { nameof(Applicant.GenderDisplay), "Пол" },
+                { nameof(Applicant.StudyFormDisplay), "Форма обучения" },
+                { nameof(Applicant.MathScore), "ЕГЭ (Математика)" },
+                { nameof(Applicant.RussianScore), "ЕГЭ (Русский)" },
+                { nameof(Applicant.InformaticScore), "ЕГЭ (Информатика)" },
+                { nameof(Applicant.TotalScore), "Сумма баллов" }
+            };
+
+            foreach (var kvp in headers)
+            {
+                if (dataGridView.Columns[kvp.Key] != null)
+                {
+                    dataGridView.Columns[kvp.Key].HeaderText = kvp.Value;
+                }
+            }
         }
 
         private void LoadApplicants()

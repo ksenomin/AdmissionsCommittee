@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+
 namespace AdmissionComitteeDataGrid.Models
 {
     /// <summary>
@@ -19,7 +21,15 @@ namespace AdmissionComitteeDataGrid.Models
         /// <summary>
         /// Гендер
         /// </summary>
+        [Browsable(false)]
         public Gender Gender { get; set; }
+
+        /// <summary>
+        /// Отображаемый пол в гриде
+        /// </summary>
+
+        [DisplayName("Пол")]
+        public string GenderDisplay => Gender == Gender.Male ? "Мужской" : "Женский";
 
         /// <summary>
         /// День рождения
@@ -29,7 +39,23 @@ namespace AdmissionComitteeDataGrid.Models
         /// <summary>
         /// Форма обучения
         /// </summary>
+        [Browsable(false)]
         public StudyForm StudyForm { get; set; }
+
+        [DisplayName("Форма обучения")]
+        public string StudyFormDisplay
+        {
+            get
+            {
+                return StudyForm switch
+                {
+                    StudyForm.FullTime => "Очная",
+                    StudyForm.Mixed => "Очно-заочная",
+                    StudyForm.PartTime => "Заочная",
+                    _ => "Не указано"
+                };
+            }
+        }
 
         /// <summary>
         /// Баллы по математике
