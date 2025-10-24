@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             menuStrip = new MenuStrip();
-            statusStrip = new StatusStrip();
-            dataGridView = new DataGridView();
-            toolStripStatusLabelCountApplicants = new ToolStripStatusLabel();
-            toolStripStatusLabelApplicants150 = new ToolStripStatusLabel();
-            toolStripStatusLabelScoreForSuccess = new ToolStripStatusLabel();
             AddToolStripMenuItem = new ToolStripMenuItem();
             EditToolStripMenuItem = new ToolStripMenuItem();
             DeleteToolStripMenuItem = new ToolStripMenuItem();
+            statusStrip = new StatusStrip();
+            toolStripStatusLabelCountApplicants = new ToolStripStatusLabel();
+            toolStripStatusLabelApplicants150 = new ToolStripStatusLabel();
+            toolStripStatusLabelScoreForSuccess = new ToolStripStatusLabel();
+            dataGridView = new DataGridView();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -52,6 +52,25 @@
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip1";
             // 
+            // AddToolStripMenuItem
+            // 
+            AddToolStripMenuItem.Name = "AddToolStripMenuItem";
+            AddToolStripMenuItem.Size = new Size(90, 24);
+            AddToolStripMenuItem.Text = "Добавить";
+            AddToolStripMenuItem.Click += AddToolStripMenuItem_Click;
+            // 
+            // EditToolStripMenuItem
+            // 
+            EditToolStripMenuItem.Name = "EditToolStripMenuItem";
+            EditToolStripMenuItem.Size = new Size(125, 24);
+            EditToolStripMenuItem.Text = "Редактировать";
+            // 
+            // DeleteToolStripMenuItem
+            // 
+            DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            DeleteToolStripMenuItem.Size = new Size(79, 24);
+            DeleteToolStripMenuItem.Text = "Удалить";
+            // 
             // statusStrip
             // 
             statusStrip.ImageScalingSize = new Size(20, 20);
@@ -61,22 +80,6 @@
             statusStrip.Size = new Size(1047, 26);
             statusStrip.TabIndex = 1;
             statusStrip.Text = "statusStrip1";
-            // 
-            // dataGridView
-            // 
-            dataGridView.AllowUserToAddRows = false;
-            dataGridView.AllowUserToDeleteRows = false;
-            dataGridView.AllowUserToResizeColumns = false;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Dock = DockStyle.Fill;
-            dataGridView.Location = new Point(0, 28);
-            dataGridView.Name = "dataGridView";
-            dataGridView.ReadOnly = true;
-            dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1047, 513);
-            dataGridView.TabIndex = 2;
             // 
             // toolStripStatusLabelCountApplicants
             // 
@@ -96,23 +99,21 @@
             toolStripStatusLabelScoreForSuccess.Size = new Size(151, 20);
             toolStripStatusLabelScoreForSuccess.Text = "toolStripStatusLabel1";
             // 
-            // AddToolStripMenuItem
+            // dataGridView
             // 
-            AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-            AddToolStripMenuItem.Size = new Size(90, 24);
-            AddToolStripMenuItem.Text = "Добавить";
-            // 
-            // EditToolStripMenuItem
-            // 
-            EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-            EditToolStripMenuItem.Size = new Size(125, 24);
-            EditToolStripMenuItem.Text = "Редактировать";
-            // 
-            // DeleteToolStripMenuItem
-            // 
-            DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            DeleteToolStripMenuItem.Size = new Size(79, 24);
-            DeleteToolStripMenuItem.Text = "Удалить";
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
+            dataGridView.AllowUserToResizeColumns = false;
+            dataGridView.AllowUserToResizeRows = false;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Dock = DockStyle.Fill;
+            dataGridView.Location = new Point(0, 28);
+            dataGridView.Name = "dataGridView";
+            dataGridView.ReadOnly = true;
+            dataGridView.RowHeadersWidth = 51;
+            dataGridView.Size = new Size(1047, 513);
+            dataGridView.TabIndex = 2;
             // 
             // MainForm
             // 

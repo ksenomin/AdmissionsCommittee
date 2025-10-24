@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using AdmissionComitteeDataGrid.Forms;
 using AdmissionComitteeDataGrid.Models;
 
 namespace AdmissionComitteeDataGrid
@@ -56,6 +57,18 @@ namespace AdmissionComitteeDataGrid
             toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {applicantsList.Count()}";
             toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {applicantsList.Where(x => x.TotalScore > 150)}";
             toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {applicantsList.Where(x => x.TotalScore > 150).Count()}";
+        }
+
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var AddOrEditForm = new AddOrEditForm();
+
+            if (AddOrEditForm.ShowDialog(this) == DialogResult.OK)
+            {
+                applicantsList.Add(AddOrEditForm.CurrentApplicant);
+
+                SetStatistics();
+            }
         }
     }
 }
