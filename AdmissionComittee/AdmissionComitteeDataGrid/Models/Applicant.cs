@@ -24,7 +24,6 @@ namespace AdmissionComitteeDataGrid.Models
         /// </summary>
         [DeniedValues(Gender.Uknown, ErrorMessage = "Выберите пол абитуриента!")]
         [EnumDataType(typeof(Gender))]
-        [Browsable(false)]
         public Gender Gender { get; set; }
 
         /// <summary>
@@ -45,7 +44,6 @@ namespace AdmissionComitteeDataGrid.Models
         /// </summary>
         [DeniedValues(StudyForm.Uknown, ErrorMessage = "Выберите форму обучения!")]
         [EnumDataType(typeof(StudyForm))]
-        [Browsable(false)]
         public StudyForm StudyForm { get; set; }
 
         /// <summary>
@@ -100,7 +98,7 @@ namespace AdmissionComitteeDataGrid.Models
                 age--;
             }
 
-            return (age < 18 || age > 30)
+            return (age < 15 || age > 30)
                 ? new ValidationResult("Возраст должен быть от 18 до 30 лет!")
                 : ValidationResult.Success;
         }

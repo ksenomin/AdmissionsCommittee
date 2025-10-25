@@ -87,7 +87,7 @@ namespace AdmissionComitteeDataGrid.Infrastructure
 
             var propertyValue = sourcePropertyInfo.GetValue(source);
 
-            bool isValid = Validator.TryValidateProperty(propertyValue, context, results);
+            var isValid = Validator.TryValidateProperty(propertyValue, context, results);
 
             if (!isValid && results.Count > 0)
             {

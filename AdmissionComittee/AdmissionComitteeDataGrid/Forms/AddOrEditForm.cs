@@ -39,6 +39,9 @@ namespace AdmissionComitteeDataGrid.Forms
             comboBoxStudyForm.DataSource = Enum.GetValues(typeof(StudyForm));
         }
 
+        /// <summary>
+        /// Привязка контролов
+        /// </summary>
         private void BindControls()
         {
             textBoxFullName.AddBinding(x => x.Text, targetApplicant, x => x.FullName, errorProvider);
