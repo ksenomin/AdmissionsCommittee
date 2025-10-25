@@ -14,7 +14,7 @@ namespace AdmissionComitteeDataGrid
         private readonly BindingSource applicantsBinding = new();
 
         /// <summary>
-        /// Главная форма 
+        /// Главная форма приложения
         /// </summary>
         public MainForm()
         {

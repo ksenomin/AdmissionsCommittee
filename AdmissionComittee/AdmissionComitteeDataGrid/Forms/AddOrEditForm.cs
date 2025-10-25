@@ -4,13 +4,26 @@ using AdmissionComitteeDataGrid.Models;
 
 namespace AdmissionComitteeDataGrid.Forms
 {
+    /// <summary>
+    /// Форма добавления/редактирования
+    /// </summary>
     public partial class AddOrEditForm : Form
     {
+        /// <summary>
+        /// Текущий абитуриент
+        /// </summary>
         private readonly Applicant targetApplicant;
+
         private readonly ErrorProvider errorProvider = new();
 
+        /// <summary>
+        /// Свойство для доступа к текущему абитуриенту
+        /// </summary>
         public Applicant CurrentApplicant => targetApplicant;
 
+        /// <summary>
+        /// Конструктор формы
+        /// </summary>
         public AddOrEditForm(Applicant? sourceApplicant = null)
         {
             InitializeComponent();
@@ -24,6 +37,9 @@ namespace AdmissionComitteeDataGrid.Forms
             errorProvider.BlinkRate = 0;
         }
 
+        /// <summary>
+        /// Настройка контролов
+        /// </summary>
         private void SetUpFields()
         {
             numericUpDownMath.Minimum = AppConstants.MinExamScore;
