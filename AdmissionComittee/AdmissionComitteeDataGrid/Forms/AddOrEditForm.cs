@@ -4,53 +4,28 @@ namespace AdmissionComitteeDataGrid.Forms
 {
     public partial class AddOrEditForm : Form
     {
-        /// <summary>
-        /// Текущий абитуриент
-        /// </summary>
+        >
         private Applicant targetApplicant;
 
-        /// <summary>
-        /// Свойство для доступа к текущему абитуриенту
-        /// </summary>
+        
         public Applicant CurrentApplicant => targetApplicant;
 
         private readonly ErrorProvider errorProvider = new();
 
-        /// <summary>
-        /// Форма добавления или редактирования абитуриента
-        /// </summary>
         public AddOrEditForm(Applicant? sourceApplicant = null)
         {
             InitializeComponent();
 
             if (sourceApplicant == null)
             {
-                // Создание нового абитуриента (по умолчанию)
-                targetApplicant = new Applicant(
-                    fullName: string.Empty,
-                    gender: Gender.Male,
-                    birthDate: DateTime.Now,
-                    form: StudyForm.FullTime,
-                    mathScore: 0,
-                    russianScore: 0,
-                    informaticsScore: 0
-                );
+                targetApplicant = new Applicant();
 
                 Text = "Добавление абитуриента";
                 buttonAddOrEdit.Text = "Добавить";
             }
             else
             {
-                // Копирование существующего абитуриента для редактирования
-                targetApplicant = new Applicant(
-                    fullName: sourceApplicant.FullName,
-                    gender: sourceApplicant.Gender,
-                    birthDate: sourceApplicant.BirthDay,
-                    form: sourceApplicant.StudyForm,
-                    mathScore: sourceApplicant.MathScore,
-                    russianScore: sourceApplicant.RussianScore,
-                    informaticsScore: sourceApplicant.InformaticScore
-                );
+                targetApplicant = sourceApplicant.MemberwiseClone();
 
                 Text = "Редактирование абитуриента";
                 buttonAddOrEdit.Text = "Сохранить";
@@ -97,7 +72,7 @@ namespace AdmissionComitteeDataGrid.Forms
         /// </summary>
         private bool ValidateForm()
         {
-            bool isValid = true;
+            var isValid = true;
             errorProvider.Clear();
 
             if (string.IsNullOrWhiteSpace(targetApplicant.FullName))
@@ -160,25 +135,6 @@ namespace AdmissionComitteeDataGrid.Forms
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Вы уверены, что хотите отменить?", "Отмена", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Close();
-            }
-        }
-
-        private void buttonAddOrEdit_Click_1(object sender, EventArgs e)
-        {
-            if (!ValidateForm())
-            {
-                return;
-            }
-
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void buttonCancel_Click_1(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Отменить изменения?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Close();
             }

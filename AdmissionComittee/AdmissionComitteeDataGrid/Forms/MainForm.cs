@@ -9,7 +9,7 @@ namespace AdmissionComitteeDataGrid
         /// <summary>
         /// Список абитуриентов
         /// </summary>
-        public BindingList<Applicant> applicantsList = new();
+        public BindingList<Applicant> ApplicantsList = new();
 
         private readonly BindingSource applicantsBinding = new();
 
@@ -28,7 +28,7 @@ namespace AdmissionComitteeDataGrid
 
         private void SetUpDataGridView()
         {
-            applicantsBinding.DataSource = applicantsList;
+            applicantsBinding.DataSource = ApplicantsList;
             dataGridView.DataSource = applicantsBinding;
 
             // Скрытие колонок
@@ -66,18 +66,18 @@ namespace AdmissionComitteeDataGrid
 
         private void LoadApplicants()
         {
-            applicantsList.Add(new Applicant("Иванов Иван Иванович", Gender.Male, new DateTime(2006, 5, 14), StudyForm.FullTime, 70, 68, 85));
-            applicantsList.Add(new Applicant("Петрова Анна Сергеевна", Gender.Female, new DateTime(2007, 2, 10), StudyForm.Mixed, 82, 75, 79));
-            applicantsList.Add(new Applicant("Сидоров Николай Павлович", Gender.Male, new DateTime(2006, 9, 23), StudyForm.PartTime, 60, 63, 70));
-            applicantsList.Add(new Applicant("Кузнецова Елизавета Дмитриевна", Gender.Female, new DateTime(2007, 1, 30), StudyForm.FullTime, 90, 89, 95));
-            applicantsList.Add(new Applicant("Белов Артём Викторович", Gender.Male, new DateTime(2006, 11, 8), StudyForm.Mixed, 45, 55, 40));
+            ApplicantsList.Add(new Applicant("Иванов Иван Иванович", Gender.Male, new DateTime(2006, 5, 14), StudyForm.FullTime, 70, 68, 85));
+            ApplicantsList.Add(new Applicant("Петрова Анна Сергеевна", Gender.Female, new DateTime(2007, 2, 10), StudyForm.Mixed, 82, 75, 79));
+            ApplicantsList.Add(new Applicant("Сидоров Николай Павлович", Gender.Male, new DateTime(2006, 9, 23), StudyForm.PartTime, 60, 63, 70));
+            ApplicantsList.Add(new Applicant("Кузнецова Елизавета Дмитриевна", Gender.Female, new DateTime(2007, 1, 30), StudyForm.FullTime, 90, 89, 95));
+            ApplicantsList.Add(new Applicant("Белов Артём Викторович", Gender.Male, new DateTime(2006, 11, 8), StudyForm.Mixed, 45, 55, 40));
         }
 
         private void SetStatistics()
         {
-            toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {applicantsList.Count()}";
-            toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {applicantsList.Where(x => x.TotalScore > 150).Count()}";
-            toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {applicantsList.Where(x => x.TotalScore > 150).Count()}";
+            toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {ApplicantsList.Count()}";
+            toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {ApplicantsList.Where(x => x.TotalScore > 150).Count()}";
+            toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {ApplicantsList.Where(x => x.TotalScore > 150).Count()}";
         }
 
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace AdmissionComitteeDataGrid
 
             if (AddOrEditForm.ShowDialog(this) == DialogResult.OK)
             {
-                applicantsList.Add(AddOrEditForm.CurrentApplicant);
+                ApplicantsList.Add(AddOrEditForm.CurrentApplicant);
 
                 SetStatistics();
             }
@@ -107,10 +107,10 @@ namespace AdmissionComitteeDataGrid
 
             if (editForm.ShowDialog(this) == DialogResult.OK)
             {
-                var index = applicantsList.IndexOf(selectedApplicant);
+                var index = ApplicantsList.IndexOf(selectedApplicant);
                 if (index >= 0)
                 {
-                    applicantsList[index] = editForm.CurrentApplicant;
+                    ApplicantsList[index] = editForm.CurrentApplicant;
                 }
 
                 SetStatistics();
@@ -136,7 +136,7 @@ namespace AdmissionComitteeDataGrid
 
             if (confirm == DialogResult.Yes)
             {
-                applicantsList.Remove(selectedApplicant);
+                ApplicantsList.Remove(selectedApplicant);
                 SetStatistics();
             }
         }

@@ -76,27 +76,5 @@ namespace AdmissionComitteeDataGrid.Models
         /// Общее количество баллов за экзамены
         /// </summary>
         public int TotalScore => MathScore + RussianScore + InformaticScore;
-
-        /// <summary>
-        /// Конструктор абитуриента
-        /// </summary>/
-        public Applicant(
-        string fullName,
-        Gender gender,
-        DateTime birthDate,
-        StudyForm form,
-        int mathScore,
-        int russianScore,
-        int informaticsScore)
-        {
-            Id = Guid.NewGuid();
-            FullName = fullName;
-            Gender = gender;
-            BirthDay = birthDate;
-            StudyForm = form;
-            MathScore = mathScore;
-            RussianScore = russianScore;
-            InformaticScore = informaticsScore;
-        }
     }
 }

@@ -172,7 +172,7 @@
             buttonAddOrEdit.TabIndex = 14;
             buttonAddOrEdit.Text = "buttonAddOrEdit";
             buttonAddOrEdit.UseVisualStyleBackColor = true;
-            buttonAddOrEdit.Click += buttonAddOrEdit_Click_1;
+            buttonAddOrEdit.Click += buttonAddOrEdit_Click;
             // 
             // buttonCancel
             // 
@@ -182,7 +182,7 @@
             buttonCancel.TabIndex = 15;
             buttonCancel.Text = "Отмена";
             buttonCancel.UseVisualStyleBackColor = true;
-            buttonCancel.Click += buttonCancel_Click_1;
+            buttonCancel.Click += buttonCancel_Click;
             // 
             // AddOrEditForm
             // 
