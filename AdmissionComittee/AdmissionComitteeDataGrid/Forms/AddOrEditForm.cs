@@ -21,6 +21,7 @@ namespace AdmissionComitteeDataGrid.Forms
 
             SetUpFields();
             BindControls();
+            errorProvider.BlinkRate = 0;
         }
 
         private void SetUpFields()
@@ -52,10 +53,11 @@ namespace AdmissionComitteeDataGrid.Forms
         private void buttonAddOrEdit_Click(object sender, EventArgs e)
         {
             errorProvider.Clear();
+
             var context = new ValidationContext(targetApplicant);
             var results = new List<ValidationResult>();
 
-            bool isValid = Validator.TryValidateObject(targetApplicant, context, results, true);
+            var isValid = Validator.TryValidateObject(targetApplicant, context, results, true);
 
             if (isValid)
             {
@@ -64,11 +66,11 @@ namespace AdmissionComitteeDataGrid.Forms
                 return;
             }
 
-            foreach (var result in results)
+            foreach (var validationResult in results)
             {
-                foreach (var member in result.MemberNames)
+                foreach (var memberName in validationResult.MemberNames)
                 {
-                    Control? control = member switch
+                    Control? control = memberName switch
                     {
                         nameof(Applicant.FullName) => textBoxFullName,
                         nameof(Applicant.Gender) => comboBoxGender,
@@ -82,15 +84,12 @@ namespace AdmissionComitteeDataGrid.Forms
 
                     if (control != null)
                     {
-                        errorProvider.SetError(control, result.ErrorMessage);
+                        errorProvider.SetError(control, validationResult.ErrorMessage);
                     }
                 }
             }
 
-            MessageBox.Show("Пожалуйста, исправьте ошибки перед сохранением.",
-                "Ошибки валидации",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Warning);
+            MessageBox.Show("Исправьте ошибки перед сохранением.", "Ошибка валидации", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -99,6 +98,14 @@ namespace AdmissionComitteeDataGrid.Forms
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Close();
+            }
+        }
+
+        private void textBoxFullName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '-')
+            {
+                e.Handled = true;
             }
         }
     }

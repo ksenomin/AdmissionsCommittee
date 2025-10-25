@@ -7,7 +7,7 @@ namespace AdmissionComitteeDataGrid.Models
     public class AppConstants
     {
         // Баллы за экзамены
-        public const int MinExamScore = 0;
+        public const int MinExamScore = 25;
         public const int MaxExamScore = 100;
 
         // Возраст

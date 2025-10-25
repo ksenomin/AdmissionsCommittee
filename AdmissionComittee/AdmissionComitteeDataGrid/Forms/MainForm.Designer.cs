@@ -38,9 +38,9 @@
             toolStripStatusLabelScoreForSuccess = new ToolStripStatusLabel();
             dataGridView = new DataGridView();
             ColumnFullName = new DataGridViewTextBoxColumn();
-            ColumnGender = new DataGridViewComboBoxColumn();
+            ColumnGender = new DataGridViewTextBoxColumn();
             ColumnDateBirth = new DataGridViewTextBoxColumn();
-            ColumnStudyForm = new DataGridViewComboBoxColumn();
+            ColumnStudyForm = new DataGridViewTextBoxColumn();
             ColumnMathScore = new DataGridViewTextBoxColumn();
             ColumnRussianScore = new DataGridViewTextBoxColumn();
             ColumnInformaticSore = new DataGridViewTextBoxColumn();
@@ -139,6 +139,8 @@
             ColumnGender.MinimumWidth = 6;
             ColumnGender.Name = "ColumnGender";
             ColumnGender.ReadOnly = true;
+            ColumnGender.Resizable = DataGridViewTriState.True;
+            ColumnGender.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // ColumnDateBirth
             // 
@@ -153,6 +155,8 @@
             ColumnStudyForm.MinimumWidth = 6;
             ColumnStudyForm.Name = "ColumnStudyForm";
             ColumnStudyForm.ReadOnly = true;
+            ColumnStudyForm.Resizable = DataGridViewTriState.True;
+            ColumnStudyForm.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // ColumnMathScore
             // 
@@ -215,9 +219,9 @@
         private ToolStripStatusLabel toolStripStatusLabelScoreForSuccess;
         private DataGridView dataGridView;
         private DataGridViewTextBoxColumn ColumnFullName;
-        private DataGridViewComboBoxColumn ColumnGender;
+        private DataGridViewTextBoxColumn ColumnGender;
         private DataGridViewTextBoxColumn ColumnDateBirth;
-        private DataGridViewComboBoxColumn ColumnStudyForm;
+        private DataGridViewTextBoxColumn ColumnStudyForm;
         private DataGridViewTextBoxColumn ColumnMathScore;
         private DataGridViewTextBoxColumn ColumnRussianScore;
         private DataGridViewTextBoxColumn ColumnInformaticSore;

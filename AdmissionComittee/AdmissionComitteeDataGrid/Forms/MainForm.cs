@@ -34,13 +34,13 @@ namespace AdmissionComitteeDataGrid
             dataGridView.AutoGenerateColumns = false;
 
             ColumnFullName.DataPropertyName = nameof(Applicant.FullName);
-            ColumnGender.DataPropertyName = nameof(Applicant.Gender);
             ColumnDateBirth.DataPropertyName = nameof(Applicant.BirthDay);
             ColumnMathScore.DataPropertyName = nameof(Applicant.MathScore);
             ColumnRussianScore.DataPropertyName = nameof(Applicant.RussianScore);
             ColumnInformaticSore.DataPropertyName = nameof(Applicant.InformaticScore);
             ColumnSumScore.DataPropertyName = nameof(Applicant.TotalScore);
-            ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyForm);
+            ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyFormDisplay);
+            ColumnGender.DataPropertyName = nameof(Applicant.GenderDisplay);
 
             applicantsBinding.DataSource = ApplicantsList;
             dataGridView.DataSource = applicantsBinding;
