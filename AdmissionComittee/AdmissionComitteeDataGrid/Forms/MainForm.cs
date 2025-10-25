@@ -14,7 +14,7 @@ namespace AdmissionComitteeDataGrid
         private readonly BindingSource applicantsBinding = new();
 
         /// <summary>
-        /// Главная форма приложения
+        /// Главная форма 
         /// </summary>
         public MainForm()
         {
@@ -26,53 +26,41 @@ namespace AdmissionComitteeDataGrid
             SetStatistics();
         }
 
+        /// <summary>
+        /// Настройка грида
+        /// </summary>
         private void SetUpDataGridView()
         {
+            dataGridView.AutoGenerateColumns = false;
+
+            ColumnFullName.DataPropertyName = nameof(Applicant.FullName);
+            ColumnGender.DataPropertyName = nameof(Applicant.Gender);
+            ColumnDateBirth.DataPropertyName = nameof(Applicant.BirthDay);
+            ColumnMathScore.DataPropertyName = nameof(Applicant.MathScore);
+            ColumnRussianScore.DataPropertyName = nameof(Applicant.RussianScore);
+            ColumnInformaticSore.DataPropertyName = nameof(Applicant.InformaticScore);
+            ColumnSumScore.DataPropertyName = nameof(Applicant.TotalScore);
+            ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyForm);
+
             applicantsBinding.DataSource = ApplicantsList;
             dataGridView.DataSource = applicantsBinding;
-
-            // Скрытие колонок
-            var hiddenColumns = new[] { nameof(Applicant.Id), nameof(Applicant.Gender), nameof(Applicant.StudyForm) };
-            foreach (var colName in hiddenColumns)
-            {
-                if (dataGridView.Columns[colName] != null)
-                {
-                    dataGridView.Columns[colName].Visible = false;
-
-                }
-            }
-
-            // Заголовки для отображаемых колонок
-            var headers = new Dictionary<string, string>
-            {
-                { nameof(Applicant.FullName), "ФИО" },
-                { nameof(Applicant.BirthDay), "Дата рождения" },
-                { nameof(Applicant.GenderDisplay), "Пол" },
-                { nameof(Applicant.StudyFormDisplay), "Форма обучения" },
-                { nameof(Applicant.MathScore), "ЕГЭ (Математика)" },
-                { nameof(Applicant.RussianScore), "ЕГЭ (Русский)" },
-                { nameof(Applicant.InformaticScore), "ЕГЭ (Информатика)" },
-                { nameof(Applicant.TotalScore), "Сумма баллов" }
-            };
-
-            foreach (var kvp in headers)
-            {
-                if (dataGridView.Columns[kvp.Key] != null)
-                {
-                    dataGridView.Columns[kvp.Key].HeaderText = kvp.Value;
-                }
-            }
         }
 
+        /// <summary>
+        /// Создание записей
+        /// </summary>
         private void LoadApplicants()
         {
-            ApplicantsList.Add(new Applicant("Иванов Иван Иванович", Gender.Male, new DateTime(2006, 5, 14), StudyForm.FullTime, 70, 68, 85));
-            ApplicantsList.Add(new Applicant("Петрова Анна Сергеевна", Gender.Female, new DateTime(2007, 2, 10), StudyForm.Mixed, 82, 75, 79));
-            ApplicantsList.Add(new Applicant("Сидоров Николай Павлович", Gender.Male, new DateTime(2006, 9, 23), StudyForm.PartTime, 60, 63, 70));
-            ApplicantsList.Add(new Applicant("Кузнецова Елизавета Дмитриевна", Gender.Female, new DateTime(2007, 1, 30), StudyForm.FullTime, 90, 89, 95));
-            ApplicantsList.Add(new Applicant("Белов Артём Викторович", Gender.Male, new DateTime(2006, 11, 8), StudyForm.Mixed, 45, 55, 40));
+            ApplicantsList.Add(new Applicant { FullName = "Иванов Иван Иванович", Gender = Gender.Male, BirthDay = new DateTime(2006, 5, 14), StudyForm = StudyForm.FullTime, MathScore = 70, RussianScore = 68, InformaticScore = 85 });
+            ApplicantsList.Add(new Applicant { FullName = "Петрова Анна Сергеевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 2, 10), StudyForm = StudyForm.Mixed, MathScore = 82, RussianScore = 75, InformaticScore = 79 });
+            ApplicantsList.Add(new Applicant { FullName = "Сидоров Николай Павлович", Gender = Gender.Male, BirthDay = new DateTime(2006, 9, 23), StudyForm = StudyForm.PartTime, MathScore = 60, RussianScore = 63, InformaticScore = 70 });
+            ApplicantsList.Add(new Applicant { FullName = "Кузнецова Елизавета Дмитриевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 1, 30), StudyForm = StudyForm.FullTime, MathScore = 90, RussianScore = 89, InformaticScore = 95 });
+            ApplicantsList.Add(new Applicant { FullName = "Белов Артём Викторович", Gender = Gender.Male, BirthDay = new DateTime(2006, 11, 8), StudyForm = StudyForm.Mixed, MathScore = 45, RussianScore = 55, InformaticScore = 40 });
         }
 
+        /// <summary>
+        /// Обновление статистики
+        /// </summary>
         private void SetStatistics()
         {
             toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {ApplicantsList.Count()}";

@@ -55,7 +55,6 @@
             textBoxFullName.Name = "textBoxFullName";
             textBoxFullName.Size = new Size(223, 27);
             textBoxFullName.TabIndex = 0;
-            textBoxFullName.KeyPress += textBoxFullName_KeyPress;
             // 
             // labelFullName
             // 

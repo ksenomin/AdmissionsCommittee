@@ -1,150 +1,104 @@
-﻿using AdmissionComitteeDataGrid.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using AdmissionComitteeDataGrid.Infrastructure;
+using AdmissionComitteeDataGrid.Models;
 
 namespace AdmissionComitteeDataGrid.Forms
 {
     public partial class AddOrEditForm : Form
     {
-        >
-        private Applicant targetApplicant;
-
-        
-        public Applicant CurrentApplicant => targetApplicant;
-
+        private readonly Applicant targetApplicant;
         private readonly ErrorProvider errorProvider = new();
+
+        public Applicant CurrentApplicant => targetApplicant;
 
         public AddOrEditForm(Applicant? sourceApplicant = null)
         {
             InitializeComponent();
 
-            if (sourceApplicant == null)
-            {
-                targetApplicant = new Applicant();
+            targetApplicant = sourceApplicant?.Clone() ?? new Applicant();
+            Text = sourceApplicant == null ? "Добавление абитуриента" : "Редактирование абитуриента";
+            buttonAddOrEdit.Text = sourceApplicant == null ? "Добавить" : "Сохранить";
 
-                Text = "Добавление абитуриента";
-                buttonAddOrEdit.Text = "Добавить";
-            }
-            else
-            {
-                targetApplicant = sourceApplicant.MemberwiseClone();
-
-                Text = "Редактирование абитуриента";
-                buttonAddOrEdit.Text = "Сохранить";
-            }
-
-            BindControls();
             SetUpFields();
+            BindControls();
         }
 
-        /// <summary>
-        /// Настройка комбобоксов и ограничений
-        /// </summary>
         private void SetUpFields()
         {
-            numericUpDownMath.Maximum = 100;
-            numericUpDownRussian.Maximum = 100;
-            numericUpDownInformatic.Maximum = 100;
+            numericUpDownMath.Minimum = AppConstants.MinExamScore;
+            numericUpDownMath.Maximum = AppConstants.MaxExamScore;
 
-            numericUpDownMath.Minimum = 0;
-            numericUpDownRussian.Minimum = 0;
-            numericUpDownInformatic.Minimum = 0;
+            numericUpDownRussian.Minimum = AppConstants.MinExamScore;
+            numericUpDownRussian.Maximum = AppConstants.MaxExamScore;
 
-            // Настраиваем комбобоксы
+            numericUpDownInformatic.Minimum = AppConstants.MinExamScore;
+            numericUpDownInformatic.Maximum = AppConstants.MaxExamScore;
+
             comboBoxGender.DataSource = Enum.GetValues(typeof(Gender));
             comboBoxStudyForm.DataSource = Enum.GetValues(typeof(StudyForm));
         }
 
-        /// <summary>
-        /// Привязка данных из модели к контролам
-        /// </summary>
         private void BindControls()
         {
-            textBoxFullName.DataBindings.Add("Text", targetApplicant, nameof(Applicant.FullName));
-            comboBoxGender.DataBindings.Add("SelectedItem", targetApplicant, nameof(Applicant.Gender));
-            dateTimePickerBirthDate.DataBindings.Add("Value", targetApplicant, nameof(Applicant.BirthDay));
-            comboBoxStudyForm.DataBindings.Add("SelectedItem", targetApplicant, nameof(Applicant.StudyForm));
-            numericUpDownMath.DataBindings.Add("Value", targetApplicant, nameof(Applicant.MathScore));
-            numericUpDownRussian.DataBindings.Add("Value", targetApplicant, nameof(Applicant.RussianScore));
-            numericUpDownInformatic.DataBindings.Add("Value", targetApplicant, nameof(Applicant.InformaticScore));
+            textBoxFullName.AddBinding(x => x.Text, targetApplicant, x => x.FullName, errorProvider);
+            comboBoxGender.AddBinding(x => x.SelectedItem!, targetApplicant, x => x.Gender, errorProvider);
+            dateTimePickerBirthDate.AddBinding(x => x.Value, targetApplicant, x => x.BirthDay, errorProvider);
+            comboBoxStudyForm.AddBinding(x => x.SelectedItem!, targetApplicant, x => x.StudyForm, errorProvider);
+            numericUpDownMath.AddBinding(x => x.Value, targetApplicant, x => x.MathScore, errorProvider);
+            numericUpDownRussian.AddBinding(x => x.Value, targetApplicant, x => x.RussianScore, errorProvider);
+            numericUpDownInformatic.AddBinding(x => x.Value, targetApplicant, x => x.InformaticScore, errorProvider);
         }
-
-        /// <summary>
-        /// Проверка корректности введённых данных
-        /// </summary>
-        private bool ValidateForm()
-        {
-            var isValid = true;
-            errorProvider.Clear();
-
-            if (string.IsNullOrWhiteSpace(targetApplicant.FullName))
-            {
-                errorProvider.SetError(textBoxFullName, "Введите ФИО абитуриента!");
-                isValid = false;
-            }
-
-            if (targetApplicant.Gender == Gender.Uknown)
-            {
-                errorProvider.SetError(comboBoxGender, "Выберите пол!");
-                isValid = false;
-            }
-
-            var age = DateTime.Now.Year - targetApplicant.BirthDay.Year;
-            if (targetApplicant.BirthDay > DateTime.Now.AddYears(-age))
-            {
-                age--;
-            }
-
-            if (age < 16 || age > 30)
-            {
-                errorProvider.SetError(dateTimePickerBirthDate, "Возраст должен быть от 16 до 100 лет!");
-                isValid = false;
-            }
-
-            if (targetApplicant.MathScore < 0 || targetApplicant.MathScore > 100)
-            {
-                errorProvider.SetError(numericUpDownMath, "Баллы по математике должны быть от 0 до 100!");
-                isValid = false;
-            }
-
-            if (targetApplicant.RussianScore < 0 || targetApplicant.RussianScore > 100)
-            {
-                errorProvider.SetError(numericUpDownRussian, "Баллы по русскому должны быть от 0 до 100!");
-                isValid = false;
-            }
-
-            if (targetApplicant.InformaticScore < 0 || targetApplicant.InformaticScore > 100)
-            {
-                errorProvider.SetError(numericUpDownInformatic, "Баллы по информатике должны быть от 0 до 100!");
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
 
         private void buttonAddOrEdit_Click(object sender, EventArgs e)
         {
-            if (!ValidateForm())
+            errorProvider.Clear();
+            var context = new ValidationContext(targetApplicant);
+            var results = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(targetApplicant, context, results, true);
+
+            if (isValid)
             {
+                DialogResult = DialogResult.OK;
+                Close();
                 return;
             }
 
-            DialogResult = DialogResult.OK;
-            Close();
+            foreach (var result in results)
+            {
+                foreach (var member in result.MemberNames)
+                {
+                    Control? control = member switch
+                    {
+                        nameof(Applicant.FullName) => textBoxFullName,
+                        nameof(Applicant.Gender) => comboBoxGender,
+                        nameof(Applicant.BirthDay) => dateTimePickerBirthDate,
+                        nameof(Applicant.StudyForm) => comboBoxStudyForm,
+                        nameof(Applicant.MathScore) => numericUpDownMath,
+                        nameof(Applicant.RussianScore) => numericUpDownRussian,
+                        nameof(Applicant.InformaticScore) => numericUpDownInformatic,
+                        _ => null
+                    };
+
+                    if (control != null)
+                    {
+                        errorProvider.SetError(control, result.ErrorMessage);
+                    }
+                }
+            }
+
+            MessageBox.Show("Пожалуйста, исправьте ошибки перед сохранением.",
+                "Ошибки валидации",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите отменить?", "Отмена", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Вы уверены, что хотите отменить?", "Отмена",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Close();
-            }
-        }
-
-        private void textBoxFullName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '-')
-            {
-                e.Handled = true;
             }
         }
     }

@@ -37,6 +37,14 @@
             toolStripStatusLabelApplicants150 = new ToolStripStatusLabel();
             toolStripStatusLabelScoreForSuccess = new ToolStripStatusLabel();
             dataGridView = new DataGridView();
+            ColumnFullName = new DataGridViewTextBoxColumn();
+            ColumnGender = new DataGridViewComboBoxColumn();
+            ColumnDateBirth = new DataGridViewTextBoxColumn();
+            ColumnStudyForm = new DataGridViewComboBoxColumn();
+            ColumnMathScore = new DataGridViewTextBoxColumn();
+            ColumnRussianScore = new DataGridViewTextBoxColumn();
+            ColumnInformaticSore = new DataGridViewTextBoxColumn();
+            ColumnSumScore = new DataGridViewTextBoxColumn();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -109,6 +117,7 @@
             dataGridView.AllowUserToResizeRows = false;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Columns.AddRange(new DataGridViewColumn[] { ColumnFullName, ColumnGender, ColumnDateBirth, ColumnStudyForm, ColumnMathScore, ColumnRussianScore, ColumnInformaticSore, ColumnSumScore });
             dataGridView.Dock = DockStyle.Fill;
             dataGridView.Location = new Point(0, 28);
             dataGridView.Name = "dataGridView";
@@ -116,6 +125,62 @@
             dataGridView.RowHeadersWidth = 51;
             dataGridView.Size = new Size(1047, 513);
             dataGridView.TabIndex = 2;
+            // 
+            // ColumnFullName
+            // 
+            ColumnFullName.HeaderText = "ФИО";
+            ColumnFullName.MinimumWidth = 6;
+            ColumnFullName.Name = "ColumnFullName";
+            ColumnFullName.ReadOnly = true;
+            // 
+            // ColumnGender
+            // 
+            ColumnGender.HeaderText = "Пол";
+            ColumnGender.MinimumWidth = 6;
+            ColumnGender.Name = "ColumnGender";
+            ColumnGender.ReadOnly = true;
+            // 
+            // ColumnDateBirth
+            // 
+            ColumnDateBirth.HeaderText = "Дата рождения";
+            ColumnDateBirth.MinimumWidth = 6;
+            ColumnDateBirth.Name = "ColumnDateBirth";
+            ColumnDateBirth.ReadOnly = true;
+            // 
+            // ColumnStudyForm
+            // 
+            ColumnStudyForm.HeaderText = "Форма обучения";
+            ColumnStudyForm.MinimumWidth = 6;
+            ColumnStudyForm.Name = "ColumnStudyForm";
+            ColumnStudyForm.ReadOnly = true;
+            // 
+            // ColumnMathScore
+            // 
+            ColumnMathScore.HeaderText = "Баллы по математике";
+            ColumnMathScore.MinimumWidth = 6;
+            ColumnMathScore.Name = "ColumnMathScore";
+            ColumnMathScore.ReadOnly = true;
+            // 
+            // ColumnRussianScore
+            // 
+            ColumnRussianScore.HeaderText = "Баллы по русскому яз.";
+            ColumnRussianScore.MinimumWidth = 6;
+            ColumnRussianScore.Name = "ColumnRussianScore";
+            ColumnRussianScore.ReadOnly = true;
+            // 
+            // ColumnInformaticSore
+            // 
+            ColumnInformaticSore.HeaderText = "Баллы по информатике";
+            ColumnInformaticSore.MinimumWidth = 6;
+            ColumnInformaticSore.Name = "ColumnInformaticSore";
+            ColumnInformaticSore.ReadOnly = true;
+            // 
+            // ColumnSumScore
+            // 
+            ColumnSumScore.HeaderText = "Общая сумма баллов";
+            ColumnSumScore.MinimumWidth = 6;
+            ColumnSumScore.Name = "ColumnSumScore";
+            ColumnSumScore.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -149,5 +214,13 @@
         private ToolStripStatusLabel toolStripStatusLabelApplicants150;
         private ToolStripStatusLabel toolStripStatusLabelScoreForSuccess;
         private DataGridView dataGridView;
+        private DataGridViewTextBoxColumn ColumnFullName;
+        private DataGridViewComboBoxColumn ColumnGender;
+        private DataGridViewTextBoxColumn ColumnDateBirth;
+        private DataGridViewComboBoxColumn ColumnStudyForm;
+        private DataGridViewTextBoxColumn ColumnMathScore;
+        private DataGridViewTextBoxColumn ColumnRussianScore;
+        private DataGridViewTextBoxColumn ColumnInformaticSore;
+        private DataGridViewTextBoxColumn ColumnSumScore;
     }
 }

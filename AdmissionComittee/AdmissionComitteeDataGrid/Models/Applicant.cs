@@ -1,80 +1,59 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdmissionComitteeDataGrid.Models
 {
-    /// <summary>
-    /// Класс абитуриента
-    /// </summary>
     public class Applicant
     {
-        /// <summary>
-        /// Уникальный идентификатор
-        /// </summary>
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        /// <summary>
-        /// Фио
-        /// </summary>
-        public string FullName { get; set; }
+        [Required(ErrorMessage = "Введите ФИО абитуриента!")]
+        public string FullName { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Гендер
-        /// </summary>
-        [Browsable(false)]
-        public Gender Gender { get; set; }
-
-        /// <summary>
-        /// Отображаемый пол в гриде
-        /// </summary>
+        [Required(ErrorMessage = "Выберите пол!")]
+        [EnumDataType(typeof(Gender))]
+        public Gender Gender { get; set; } = Gender.Uknown;
 
         [DisplayName("Пол")]
         public string GenderDisplay => Gender == Gender.Male ? "Мужской" : "Женский";
 
-        /// <summary>
-        /// День рождения
-        /// </summary>
-        public DateTime BirthDay { get; set; }
+        [Required(ErrorMessage = "Укажите дату рождения!")]
+        [CustomValidation(typeof(Applicant), nameof(ValidateAge))]
+        public DateTime BirthDay { get; set; } = DateTime.Now.AddYears(-18);
 
-        /// <summary>
-        /// Форма обучения
-        /// </summary>
-        [Browsable(false)]
+        [Required(ErrorMessage = "Выберите форму обучения!")]
+        [EnumDataType(typeof(StudyForm))]
         public StudyForm StudyForm { get; set; }
 
-        [DisplayName("Форма обучения")]
-        public string StudyFormDisplay
-        {
-            get
-            {
-                return StudyForm switch
-                {
-                    StudyForm.FullTime => "Очная",
-                    StudyForm.Mixed => "Очно-заочная",
-                    StudyForm.PartTime => "Заочная",
-                    _ => "Не указано"
-                };
-            }
-        }
-
-        /// <summary>
-        /// Баллы по математике
-        /// </summary>
+        [Range(AppConstants.MinExamScore, AppConstants.MaxExamScore, ErrorMessage = "Баллы по математике должны быть от 0 до 100!")]
         public int MathScore { get; set; }
 
-        /// <summary>
-        /// Баллы по русскому
-        /// </summary>
+        [Range(AppConstants.MinExamScore, AppConstants.MaxExamScore, ErrorMessage = "Баллы по русскому должны быть от 0 до 100!")]
         public int RussianScore { get; set; }
 
-        /// <summary>
-        /// Балы по информатике
-        /// </summary>
+        [Range(AppConstants.MinExamScore, AppConstants.MaxExamScore, ErrorMessage = "Баллы по информатике должны быть от 0 до 100!")]
         public int InformaticScore { get; set; }
 
-        /// <summary>
-        /// Общее количество баллов за экзамены
-        /// </summary>
         public int TotalScore => MathScore + RussianScore + InformaticScore;
+
+        public Applicant Clone() => (Applicant)MemberwiseClone();
+
+        // --- Валидация возраста ---
+        public static ValidationResult? ValidateAge(DateTime birthDay, ValidationContext context)
+        {
+            var age = DateTime.Now.Year - birthDay.Year;
+            if (birthDay > DateTime.Now.AddYears(-age))
+            {
+                age--;
+
+            }
+
+            if (age < AppConstants.MinAge || age > AppConstants.MaxAge)
+            {
+                return new ValidationResult($"Возраст должен быть от {AppConstants.MinAge} до {AppConstants.MaxAge} лет!");
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }
