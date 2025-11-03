@@ -4,6 +4,9 @@ using AdmissionComitteeDataGrid.Models;
 
 namespace AdmissionComitteeDataGrid
 {
+    /// <summary>
+    /// Главная форма приложения
+    /// </summary>
     public partial class MainForm : Form
     {
         /// <summary>
@@ -14,7 +17,7 @@ namespace AdmissionComitteeDataGrid
         private readonly BindingSource applicantsBinding = new();
 
         /// <summary>
-        /// Главная форма приложения
+        /// Конструктор главной формы
         /// </summary>
         public MainForm()
         {
@@ -38,9 +41,9 @@ namespace AdmissionComitteeDataGrid
             ColumnMathScore.DataPropertyName = nameof(Applicant.MathScore);
             ColumnRussianScore.DataPropertyName = nameof(Applicant.RussianScore);
             ColumnInformaticSore.DataPropertyName = nameof(Applicant.InformaticScore);
-            ColumnSumScore.DataPropertyName = nameof(Applicant.TotalScore);
-            ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyFormDisplay);
-            ColumnGender.DataPropertyName = nameof(Applicant.GenderDisplay);
+            ColumnSumScore.DataPropertyName = nameof(Applicant.MathScore) + nameof(Applicant.RussianScore) + nameof(Applicant.InformaticScore);
+            ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyForm);
+            ColumnGender.DataPropertyName = nameof(Applicant.Gender);
 
             applicantsBinding.DataSource = ApplicantsList;
             dataGridView.DataSource = applicantsBinding;
@@ -64,8 +67,8 @@ namespace AdmissionComitteeDataGrid
         private void SetStatistics()
         {
             toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {ApplicantsList.Count()}";
-            toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {ApplicantsList.Where(x => x.TotalScore > 150).Count()}";
-            toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {ApplicantsList.Where(x => x.TotalScore > 150).Count()}";
+            toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {ApplicantsList.Where(x => x.MathScore + x.RussianScore + x.InformaticScore > 150).Count()}";
+            toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {ApplicantsList.Where(x => x.MathScore + x.RussianScore + x.InformaticScore > 150).Count()}";
         }
 
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)

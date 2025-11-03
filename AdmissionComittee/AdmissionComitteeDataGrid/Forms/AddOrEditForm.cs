@@ -28,9 +28,30 @@ namespace AdmissionComitteeDataGrid.Forms
         {
             InitializeComponent();
 
-            targetApplicant = sourceApplicant?.Clone() ?? new Applicant();
-            Text = sourceApplicant == null ? "Добавление абитуриента" : "Редактирование абитуриента";
-            buttonAddOrEdit.Text = sourceApplicant == null ? "Добавить" : "Сохранить";
+            if (sourceApplicant == null)
+            {
+                targetApplicant = new Applicant();
+
+                Text = "Добавление абитуриента";
+                buttonAddOrEdit.Text = "Добавить";
+            }
+            else
+            {
+                targetApplicant = new Applicant
+                {
+                    Id = sourceApplicant.Id,
+                    FullName = sourceApplicant.FullName,
+                    Gender = sourceApplicant.Gender,
+                    BirthDay = sourceApplicant.BirthDay,
+                    StudyForm = sourceApplicant.StudyForm,
+                    MathScore = sourceApplicant.MathScore,
+                    RussianScore = sourceApplicant.RussianScore,
+                    InformaticScore = sourceApplicant.InformaticScore
+                };
+
+                Text = "Редактирование абитуриента";
+                buttonAddOrEdit.Text = "Сохранить";
+            }
 
             SetUpFields();
             BindControls();

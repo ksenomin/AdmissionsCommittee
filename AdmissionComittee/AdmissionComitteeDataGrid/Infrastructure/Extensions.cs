@@ -91,7 +91,22 @@ namespace AdmissionComitteeDataGrid.Infrastructure
 
             if (!isValid && results.Count > 0)
             {
-                errorProvider.SetError(control, results[0].ErrorMessage);
+                // Фильтруем только ошибки, относящиеся к текущему свойству
+                var messages = results
+                    .Where(r => r.MemberNames.Contains(sourcePropertyName))
+                    .Select(r => r.ErrorMessage)
+                    .ToArray();
+
+                if (messages.Length > 0)
+                {
+                    // Если нужно — можно показывать только первую, 
+                    // или объединять через перевод строки
+                    errorProvider.SetError(control, string.Join(Environment.NewLine, messages));
+                }
+                else
+                {
+                    errorProvider.SetError(control, string.Empty);
+                }
             }
             else
             {
