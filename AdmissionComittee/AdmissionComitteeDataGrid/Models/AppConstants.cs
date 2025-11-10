@@ -1,17 +1,28 @@
-﻿
-namespace AdmissionComitteeDataGrid.Models
+﻿namespace AdmissionComitteeDataGrid.Models
 {
     /// <summary>
     /// Постоянные значения приложения
     /// </summary>
     public class AppConstants
     {
-        // Баллы за экзамены
+        /// <summary>
+        /// Минимальный балл за экзамен
+        /// </summary>
         public const int MinExamScore = 25;
+
+        /// <summary>
+        /// Максимальный балл за экзамен
+        /// </summary>
         public const int MaxExamScore = 100;
 
-        // Возраст
+        /// <summary>
+        /// Минимальный возраст
+        /// </summary>
         public const int MinAge = 15;
+
+        /// <summary>
+        /// Максимальный возраст
+        /// </summary>
         public const int MaxAge = 70;
     }
 }

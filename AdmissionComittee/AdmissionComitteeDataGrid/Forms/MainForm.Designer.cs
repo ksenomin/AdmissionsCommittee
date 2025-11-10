@@ -125,6 +125,7 @@
             dataGridView.RowHeadersWidth = 51;
             dataGridView.Size = new Size(1047, 513);
             dataGridView.TabIndex = 2;
+            dataGridView.CellFormatting += dataGridView_CellFormatting;
             // 
             // ColumnFullName
             // 

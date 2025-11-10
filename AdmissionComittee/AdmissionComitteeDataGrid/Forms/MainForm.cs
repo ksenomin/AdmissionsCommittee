@@ -41,7 +41,6 @@ namespace AdmissionComitteeDataGrid
             ColumnMathScore.DataPropertyName = nameof(Applicant.MathScore);
             ColumnRussianScore.DataPropertyName = nameof(Applicant.RussianScore);
             ColumnInformaticSore.DataPropertyName = nameof(Applicant.InformaticScore);
-            ColumnSumScore.DataPropertyName = nameof(Applicant.MathScore) + nameof(Applicant.RussianScore) + nameof(Applicant.InformaticScore);
             ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyForm);
             ColumnGender.DataPropertyName = nameof(Applicant.Gender);
 
@@ -73,11 +72,11 @@ namespace AdmissionComitteeDataGrid
 
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var AddOrEditForm = new AddOrEditForm();
+            var addOrEditForm = new AddOrEditForm();
 
-            if (AddOrEditForm.ShowDialog(this) == DialogResult.OK)
+            if (addOrEditForm.ShowDialog(this) == DialogResult.OK)
             {
-                ApplicantsList.Add(AddOrEditForm.CurrentApplicant);
+                ApplicantsList.Add(addOrEditForm.CurrentApplicant);
 
                 SetStatistics();
             }
@@ -129,6 +128,17 @@ namespace AdmissionComitteeDataGrid
             {
                 ApplicantsList.Remove(selectedApplicant);
                 SetStatistics();
+            }
+        }
+
+        private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView.Columns[e.ColumnIndex].Name == "ColumnSumScore")
+            {
+                if (dataGridView.Rows[e.RowIndex].DataBoundItem is Applicant applicant)
+                {
+                    e.Value = applicant.MathScore + applicant.RussianScore + applicant.InformaticScore;
+                }
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿
-namespace AdmissionComitteeDataGrid.Models
+﻿namespace AdmissionComitteeDataGrid.Models
 {
     /// <summary>
     /// Формы обучения

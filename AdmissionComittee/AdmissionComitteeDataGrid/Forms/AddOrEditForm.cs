@@ -134,8 +134,10 @@ namespace AdmissionComitteeDataGrid.Forms
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите отменить?", "Отмена",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Вы уверены, что хотите отменить?",
+                "Отмена",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Close();
             }

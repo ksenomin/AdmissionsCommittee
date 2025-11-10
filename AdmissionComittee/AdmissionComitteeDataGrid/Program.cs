@@ -1,5 +1,8 @@
 ﻿namespace AdmissionComitteeDataGrid
 {
+    /// <summary>
+    /// Класс запуска программы
+    /// </summary>
     internal static class Program
     {
         /// <summary>

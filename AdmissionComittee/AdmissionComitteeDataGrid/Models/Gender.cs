@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace AdmissionComitteeDataGrid.Models
+﻿namespace AdmissionComitteeDataGrid.Models
 {
     /// <summary>
     /// Пол
