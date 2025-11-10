@@ -1,4 +1,4 @@
-﻿namespace AdmissionComitteeDataGrid
+namespace AdmissionComitteeDataGrid
 {
     /// <summary>
     /// Класс запуска программы
