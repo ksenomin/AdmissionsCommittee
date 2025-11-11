@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
-using AdmissionComitteeDataGrid.Forms;
 using AdmissionComitteeDataGrid.Models;
 
-namespace AdmissionComitteeDataGrid
+namespace AdmissionComitteeDataGrid.Forms
 {
     /// <summary>
     /// Главная форма приложения

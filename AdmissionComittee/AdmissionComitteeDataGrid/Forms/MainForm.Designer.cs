@@ -1,4 +1,4 @@
-﻿namespace AdmissionComitteeDataGrid
+﻿namespace AdmissionComitteeDataGrid.Forms
 {
     partial class MainForm
     {
