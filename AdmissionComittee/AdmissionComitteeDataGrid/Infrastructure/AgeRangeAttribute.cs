@@ -1,43 +1,46 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Класс валидации возраста
-/// </summary>
-public class AgeRangeAttribute : ValidationAttribute
+namespace AdmissionComitteeDataGrid.Infrastructure
 {
-    private readonly int min;
-    private readonly int max;
-
     /// <summary>
-    /// Конструктор атрибута
+    /// Класс валидации возраста
     /// </summary>
-    public AgeRangeAttribute(int min, int max)
+    public class AgeRangeAttribute : ValidationAttribute
     {
-        this.min = min;
-        this.max = max;
-    }
+        private readonly int min;
+        private readonly int max;
 
-    /// <summary>
-    /// Валидация возраста
-    /// </summary>
-    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
-    {
-        if (value is DateTime birthDate)
+        /// <summary>
+        /// Конструктор атрибута
+        /// </summary>
+        public AgeRangeAttribute(int min, int max)
         {
-            var age = DateTime.Today.Year - birthDate.Year;
-            if (birthDate.Date > DateTime.Today.AddYears(-age))
-            {
-                age--;
-            }
-
-            if (age < min || age > max)
-            {
-                return new ValidationResult(ErrorMessage, [validationContext.MemberName!]);
-            }
-
-            return ValidationResult.Success!;
+            this.min = min;
+            this.max = max;
         }
 
-        return new ValidationResult("Некорректная дата.", [validationContext.MemberName!]);
+        /// <summary>
+        /// Валидация возраста
+        /// </summary>
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
+        {
+            if (value is DateTime birthDate)
+            {
+                var age = DateTime.Today.Year - birthDate.Year;
+                if (birthDate.Date > DateTime.Today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                if (age < min || age > max)
+                {
+                    return new ValidationResult(ErrorMessage, [validationContext.MemberName!]);
+                }
+
+                return ValidationResult.Success!;
+            }
+
+            return new ValidationResult("Некорректная дата.", [validationContext.MemberName!]);
+        }
     }
 }

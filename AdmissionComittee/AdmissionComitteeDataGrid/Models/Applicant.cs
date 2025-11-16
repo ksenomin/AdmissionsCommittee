@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AdmissionComitteeDataGrid.Infrastructure;
 
 namespace AdmissionComitteeDataGrid.Models
 {
@@ -29,7 +30,7 @@ namespace AdmissionComitteeDataGrid.Models
         /// День рождения
         /// </summary>
         [Required(ErrorMessage = "Укажите дату рождения.")]
-        [AgeRange(18, 30, ErrorMessage = "Возраст должен быть от 18 до 30!")]
+        [AgeRange(AppConstants.MinAge, AppConstants.MaxAge, ErrorMessage = "Возраст должен быть от 18 до 30!")]
         public DateTime BirthDay { get; set; }
 
         /// <summary>

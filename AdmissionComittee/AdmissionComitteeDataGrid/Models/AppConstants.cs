@@ -1,4 +1,4 @@
-namespace AdmissionComitteeDataGrid.Models
+﻿namespace AdmissionComitteeDataGrid.Models
 {
     /// <summary>
     /// Постоянные значения приложения
@@ -16,13 +16,13 @@ namespace AdmissionComitteeDataGrid.Models
         public const int MaxExamScore = 100;
 
         /// <summary>
-        /// Минимальный возраст
+        /// Минимальный возраст абитуриента
         /// </summary>
         public const int MinAge = 15;
 
         /// <summary>
-        /// Максимальный возраст
+        /// Максимальный возраст абитуриента
         /// </summary>
-        public const int MaxAge = 70;
+        public const int MaxAge = 30;
     }
 }
