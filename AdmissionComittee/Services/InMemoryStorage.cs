@@ -21,23 +21,23 @@ namespace Services
             applicants.Add(new Applicant { FullName = "Белов Артём Викторович", Gender = Gender.Male, BirthDay = new DateTime(2006, 11, 8), StudyForm = StudyForm.Mixed, MathScore = 45, RussianScore = 55, InformaticScore = 40 });
         }
 
-        public Task<ICollection<Applicant>> GetAll(CancellationToken token)
+        Task<ICollection<Applicant>> IApplicantStorage.GetAll(CancellationToken token)
         {
             return Task.FromResult<ICollection<Applicant>>(applicants);
         }
 
-        public Task<Applicant?> GetById(Guid id, CancellationToken token)
+        Task<Applicant?> IApplicantStorage.GetById(Guid id, CancellationToken token)
         {
             return Task.FromResult(applicants.FirstOrDefault(x => x.Id == id));
         }
 
-        public Task Add(Applicant applicant, CancellationToken token)
+        Task IApplicantStorage.Add(Applicant applicant, CancellationToken token)
         {
             applicants.Add(applicant);
             return Task.CompletedTask;
         }
 
-        public Task Update(Applicant applicant, CancellationToken token)
+        Task IApplicantStorage.Update(Applicant applicant, CancellationToken token)
         {
             var existApplicant = applicants.FirstOrDefault(x => x.Id == applicant.Id);
             if (existApplicant != null)
@@ -54,7 +54,7 @@ namespace Services
             return Task.CompletedTask;
         }
 
-        public Task Delete(Guid id, CancellationToken token)
+        Task IApplicantStorage.Delete(Guid id, CancellationToken token)
         {
             var applicant = applicants.FirstOrDefault(x => x.Id == id);
             if (applicant != null)
@@ -64,7 +64,7 @@ namespace Services
             return Task.CompletedTask;
         }
 
-        public Task<ApplicantStatistics> GetStatistics(CancellationToken token)
+        Task<ApplicantStatistics> IApplicantStorage.GetStatistics(CancellationToken token)
         {
             var statistics = new ApplicantStatistics
             {
