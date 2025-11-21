@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using AdmissionComitteeDataGrid.Models;
+﻿using AdmissionComittee.Entities;
+using Services.Contracts;
 
 namespace AdmissionComitteeDataGrid.Forms
 {
@@ -8,24 +8,17 @@ namespace AdmissionComitteeDataGrid.Forms
     /// </summary>
     public partial class MainForm : Form
     {
-        /// <summary>
-        /// Список абитуриентов
-        /// </summary>
-        public BindingList<Applicant> ApplicantsList = new();
-
-        private readonly BindingSource applicantsBinding = new();
+        private IApplicantStorage applicantStorage;
+        private readonly BindingSource bindingSource = new();
 
         /// <summary>
         /// Конструктор главной формы
         /// </summary>
-        public MainForm()
+        public MainForm(IApplicantStorage applicantStorage)
         {
             InitializeComponent();
-
-            LoadApplicants();
+            this.applicantStorage = applicantStorage;
             SetUpDataGridView();
-
-            SetStatistics();
         }
 
         /// <summary>
@@ -42,46 +35,31 @@ namespace AdmissionComitteeDataGrid.Forms
             ColumnInformaticSore.DataPropertyName = nameof(Applicant.InformaticScore);
             ColumnStudyForm.DataPropertyName = nameof(Applicant.StudyForm);
             ColumnGender.DataPropertyName = nameof(Applicant.Gender);
-
-            applicantsBinding.DataSource = ApplicantsList;
-            dataGridView.DataSource = applicantsBinding;
-        }
-
-        /// <summary>
-        /// Создание записей
-        /// </summary>
-        private void LoadApplicants()
-        {
-            ApplicantsList.Add(new Applicant { FullName = "Иванов Иван Иванович", Gender = Gender.Male, BirthDay = new DateTime(2006, 5, 14), StudyForm = StudyForm.FullTime, MathScore = 70, RussianScore = 68, InformaticScore = 85 });
-            ApplicantsList.Add(new Applicant { FullName = "Петрова Анна Сергеевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 2, 10), StudyForm = StudyForm.Mixed, MathScore = 82, RussianScore = 75, InformaticScore = 79 });
-            ApplicantsList.Add(new Applicant { FullName = "Сидоров Николай Павлович", Gender = Gender.Male, BirthDay = new DateTime(2006, 9, 23), StudyForm = StudyForm.PartTime, MathScore = 60, RussianScore = 63, InformaticScore = 70 });
-            ApplicantsList.Add(new Applicant { FullName = "Кузнецова Елизавета Дмитриевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 1, 30), StudyForm = StudyForm.FullTime, MathScore = 90, RussianScore = 89, InformaticScore = 95 });
-            ApplicantsList.Add(new Applicant { FullName = "Белов Артём Викторович", Gender = Gender.Male, BirthDay = new DateTime(2006, 11, 8), StudyForm = StudyForm.Mixed, MathScore = 45, RussianScore = 55, InformaticScore = 40 });
         }
 
         /// <summary>
         /// Обновление статистики
         /// </summary>
-        private void SetStatistics()
+        private async Task SetStatistics()
         {
-            toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {ApplicantsList.Count()}";
-            toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {ApplicantsList.Where(x => x.MathScore + x.RussianScore + x.InformaticScore > 150).Count()}";
-            toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {ApplicantsList.Where(x => x.MathScore + x.RussianScore + x.InformaticScore > 150).Count()}";
+            var stats = await applicantStorage.GetStatistics(CancellationToken.None);
+            toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {stats.ApplicantsCountPassed}";
+            toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {stats.ApplicantsCount}";
+            toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {stats.ApplicantsCountPassed}";
         }
 
-        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var addOrEditForm = new AddOrEditForm();
+            var addForm = new AddOrEditForm();
 
-            if (addOrEditForm.ShowDialog(this) == DialogResult.OK)
+            if (addForm.ShowDialog(this) == DialogResult.OK)
             {
-                ApplicantsList.Add(addOrEditForm.CurrentApplicant);
-
-                SetStatistics();
+                await applicantStorage.Add(addForm.CurrentApplicant, CancellationToken.None);
+                await OnUpdate();
             }
         }
 
-        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void EditToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 0)
             {
@@ -91,22 +69,15 @@ namespace AdmissionComitteeDataGrid.Forms
 
             // Выбранный абитуриент
             var selectedApplicant = (Applicant)dataGridView.SelectedRows[0].DataBoundItem;
-
             var editForm = new AddOrEditForm(selectedApplicant);
-
-            if (editForm.ShowDialog(this) == DialogResult.OK)
+            if (editForm.ShowDialog() == DialogResult.OK)
             {
-                var index = ApplicantsList.IndexOf(selectedApplicant);
-                if (index >= 0)
-                {
-                    ApplicantsList[index] = editForm.CurrentApplicant;
-                }
-
-                SetStatistics();
+                await applicantStorage.Update(editForm.CurrentApplicant, CancellationToken.None);
+                await OnUpdate();
             }
         }
 
-        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 0)
             {
@@ -115,18 +86,10 @@ namespace AdmissionComitteeDataGrid.Forms
             }
 
             var selectedApplicant = (Applicant)dataGridView.SelectedRows[0].DataBoundItem;
-
-            var confirm = MessageBox.Show(
-                $"Удалить абитуриента \"{selectedApplicant.FullName}\"?",
-                "Подтверждение удаления",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (confirm == DialogResult.Yes)
+            if (MessageBox.Show($"Удалить '{selectedApplicant.FullName}'?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                ApplicantsList.Remove(selectedApplicant);
-                SetStatistics();
+                await applicantStorage.Delete(selectedApplicant.Id, CancellationToken.None);
+                await OnUpdate();
             }
         }
 
@@ -139,6 +102,27 @@ namespace AdmissionComitteeDataGrid.Forms
                     e.Value = applicant.MathScore + applicant.RussianScore + applicant.InformaticScore;
                 }
             }
+        }
+
+        private async Task LoadData()
+        {
+            var applicant = await applicantStorage.GetAll(CancellationToken.None);
+            bindingSource.DataSource = applicant.ToList();
+            dataGridView.DataSource = bindingSource;
+            await SetStatistics();
+        }
+
+        private async Task OnUpdate()
+        {
+            var applicant = await applicantStorage.GetAll(CancellationToken.None);
+            bindingSource.DataSource = applicant.ToList();
+            bindingSource.ResetBindings(false);
+            await SetStatistics();
+        }
+
+        private async void MainForm_Load(object sender, EventArgs e)
+        {
+            await LoadData();
         }
     }
 }

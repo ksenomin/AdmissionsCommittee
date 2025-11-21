@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AdmissionComittee.Entities.Contracts;
+using AdmissionComittee.Entities.Validators;
 
 namespace AdmissionComittee.Entities
 {
