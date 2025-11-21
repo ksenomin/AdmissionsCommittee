@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AdmissionComitteeDataGrid.Infrastructure;
 
-namespace AdmissionComitteeDataGrid.Models
+namespace AdmissionComittee.Entities
 {
     /// <summary>
     /// Класс абитуриента

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36616.10 d17.14
+VisualStudioVersion = 17.14.36616.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdmissionComitteeDataGrid", "AdmissionComitteeDataGrid\AdmissionComitteeDataGrid.csproj", "{2BC189A9-FD19-446F-8EF6-F53E404EC735}"
 EndProject
@@ -9,6 +9,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{0B495C4A-FFCA-4CC8-BD07-5EBAA35C18D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{D14E21DF-D12D-4984-BC49-FBD19B288F61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Contracts", "Services.Contracts\Services.Contracts.csproj", "{C43E3FE5-75C3-4E39-8830-D67ACDE7F660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Contracts", "Entities.Contracts\Entities.Contracts.csproj", "{90D4763E-A9CE-46EA-8469-52E1021F6FE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Validators", "Entities.Validators\Entities.Validators.csproj", "{72E9D153-E4B3-4218-A8D0-D482A0D4F10F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +30,26 @@ Global
 		{2BC189A9-FD19-446F-8EF6-F53E404EC735}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC189A9-FD19-446F-8EF6-F53E404EC735}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC189A9-FD19-446F-8EF6-F53E404EC735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B495C4A-FFCA-4CC8-BD07-5EBAA35C18D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B495C4A-FFCA-4CC8-BD07-5EBAA35C18D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B495C4A-FFCA-4CC8-BD07-5EBAA35C18D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B495C4A-FFCA-4CC8-BD07-5EBAA35C18D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D14E21DF-D12D-4984-BC49-FBD19B288F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D14E21DF-D12D-4984-BC49-FBD19B288F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D14E21DF-D12D-4984-BC49-FBD19B288F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D14E21DF-D12D-4984-BC49-FBD19B288F61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C43E3FE5-75C3-4E39-8830-D67ACDE7F660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43E3FE5-75C3-4E39-8830-D67ACDE7F660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43E3FE5-75C3-4E39-8830-D67ACDE7F660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43E3FE5-75C3-4E39-8830-D67ACDE7F660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D4763E-A9CE-46EA-8469-52E1021F6FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D4763E-A9CE-46EA-8469-52E1021F6FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D4763E-A9CE-46EA-8469-52E1021F6FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D4763E-A9CE-46EA-8469-52E1021F6FE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E9D153-E4B3-4218-A8D0-D482A0D4F10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E9D153-E4B3-4218-A8D0-D482A0D4F10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E9D153-E4B3-4218-A8D0-D482A0D4F10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E9D153-E4B3-4218-A8D0-D482A0D4F10F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
