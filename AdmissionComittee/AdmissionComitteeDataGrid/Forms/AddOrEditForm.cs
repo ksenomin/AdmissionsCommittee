@@ -1,6 +1,7 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using AdmissionComittee.Entities;
+using AdmissionComittee.Entities.Contracts;
 using AdmissionComitteeDataGrid.Infrastructure;
-using AdmissionComitteeDataGrid.Models;
 
 namespace AdmissionComitteeDataGrid.Forms
 {

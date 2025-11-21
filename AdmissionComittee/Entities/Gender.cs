@@ -1,4 +1,4 @@
-namespace AdmissionComitteeDataGrid.Models
+﻿namespace AdmissionComittee.Entities
 {
     /// <summary>
     /// Пол
