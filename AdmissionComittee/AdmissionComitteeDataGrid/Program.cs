@@ -17,8 +17,8 @@ namespace AdmissionComitteeDataGrid
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            IApplicantStorage applicantStorage = new InMemoryStorage();
             ApplicationConfiguration.Initialize();
+            IApplicantStorage applicantStorage = new InMemoryStorage();
             Application.Run(new MainForm(applicantStorage));
         }
     }

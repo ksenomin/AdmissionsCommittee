@@ -10,15 +10,9 @@ namespace Services
     {
         private List<Applicant> applicants;
 
-        public InMemoryStorage()
+        public InMemoryStorage(IEnumerable<Applicant>? initialData = null)
         {
-            applicants = new List<Applicant>();
-            applicants.Clear();
-            applicants.Add(new Applicant { FullName = "Иванов Иван Иванович", Gender = Gender.Male, BirthDay = new DateTime(2006, 5, 14), StudyForm = StudyForm.FullTime, MathScore = 70, RussianScore = 68, InformaticScore = 85 });
-            applicants.Add(new Applicant { FullName = "Петрова Анна Сергеевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 2, 10), StudyForm = StudyForm.Mixed, MathScore = 82, RussianScore = 75, InformaticScore = 79 });
-            applicants.Add(new Applicant { FullName = "Сидоров Николай Павлович", Gender = Gender.Male, BirthDay = new DateTime(2006, 9, 23), StudyForm = StudyForm.PartTime, MathScore = 60, RussianScore = 63, InformaticScore = 70 });
-            applicants.Add(new Applicant { FullName = "Кузнецова Елизавета Дмитриевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 1, 30), StudyForm = StudyForm.FullTime, MathScore = 90, RussianScore = 89, InformaticScore = 95 });
-            applicants.Add(new Applicant { FullName = "Белов Артём Викторович", Gender = Gender.Male, BirthDay = new DateTime(2006, 11, 8), StudyForm = StudyForm.Mixed, MathScore = 45, RussianScore = 55, InformaticScore = 40 });
+            applicants = initialData?.ToList() ?? new List<Applicant>();
         }
 
         Task<ICollection<Applicant>> IApplicantStorage.GetAll(CancellationToken token)
