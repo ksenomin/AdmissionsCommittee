@@ -6,8 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>    <PackageReference Include="ksenomin.Services" Version="1.0.1" />
+  </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="ksenomin.Services" Version="1.0.1" />
+    </ItemGroup> 
 
   <ItemGroup>
     <ProjectReference Include="..\Services.Contracts\Services.Contracts.csproj" />

@@ -22,7 +22,7 @@ namespace AdmissionComitteeDataGrid.Forms
             LoadTestData();
         }
 
-        private void LoadTestData()
+        private async void LoadTestData()
         {
             var applicants = new List<Applicant>
             {
@@ -32,6 +32,11 @@ namespace AdmissionComitteeDataGrid.Forms
             new() { FullName = "Кузнецова Елизавета Дмитриевна", Gender = Gender.Female, BirthDay = new DateTime(2007, 1, 30), StudyForm = StudyForm.FullTime, MathScore = 90, RussianScore = 89, InformaticScore = 95 },
             new() { FullName = "Белов Артём Викторович", Gender = Gender.Male, BirthDay = new DateTime(2006, 11, 8), StudyForm = StudyForm.Mixed, MathScore = 45, RussianScore = 55, InformaticScore = 40 },
             };
+
+            foreach (var aplicant in applicants)
+            {
+                await applicantStorage.Add(aplicant, CancellationToken.None);
+            }
         }
 
         /// <summary>
