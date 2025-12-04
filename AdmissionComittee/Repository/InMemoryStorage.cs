@@ -1,4 +1,5 @@
 ﻿using AdmissionComittee.Entities;
+using Repository.Contracts;
 using Services.Contracts;
 
 namespace Services
