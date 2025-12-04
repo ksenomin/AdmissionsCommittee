@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AdmissionComitteeDataGrid.Infrastructure;
+using AdmissionComittee.Entities.Contracts;
+using AdmissionComittee.Entities.Validators;
 
-namespace AdmissionComitteeDataGrid.Models
+namespace AdmissionComittee.Entities
 {
     /// <summary>
     /// Класс абитуриента
@@ -11,7 +12,7 @@ namespace AdmissionComitteeDataGrid.Models
         /// <summary>
         /// Уникальный идентификатор
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// ФИО

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AdmissionComitteeDataGrid.Infrastructure
+namespace AdmissionComittee.Entities.Validators
 {
     /// <summary>
     /// Класс валидации возраста

@@ -1,4 +1,4 @@
-﻿namespace AdmissionComitteeDataGrid.Models
+﻿namespace AdmissionComittee.Entities.Contracts
 {
     /// <summary>
     /// Постоянные значения приложения
