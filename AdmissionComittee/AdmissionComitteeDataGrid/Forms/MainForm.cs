@@ -1,4 +1,5 @@
 ﻿using AdmissionComittee.Entities;
+using Repository.Contracts;
 using Services.Contracts;
 
 namespace AdmissionComitteeDataGrid.Forms
@@ -8,16 +9,16 @@ namespace AdmissionComitteeDataGrid.Forms
     /// </summary>
     public partial class MainForm : Form
     {
-        private IApplicantStorage applicantStorage;
+        private IApplicantManager applicantManager;
         private readonly BindingSource bindingSource = new();
 
         /// <summary>
         /// Конструктор главной формы
         /// </summary>
-        public MainForm(IApplicantStorage applicantStorage)
+        public MainForm(IApplicantManager applicantManager)
         {
             InitializeComponent();
-            this.applicantStorage = applicantStorage;
+            this.applicantManager = applicantManager;
             SetUpDataGridView();
             LoadTestData();
         }
@@ -35,7 +36,7 @@ namespace AdmissionComitteeDataGrid.Forms
 
             foreach (var aplicant in applicants)
             {
-                await applicantStorage.Add(aplicant, CancellationToken.None);
+                await applicantManager.Add(aplicant, CancellationToken.None);
             }
         }
 
@@ -60,7 +61,7 @@ namespace AdmissionComitteeDataGrid.Forms
         /// </summary>
         private async Task SetStatistics()
         {
-            var stats = await applicantStorage.GetStatistics(CancellationToken.None);
+            var stats = await applicantManager.GetStatistics(CancellationToken.None);
             toolStripStatusLabelApplicants150.Text = $"Количество абитуриентов баллы которых больше 150: {stats.ApplicantsCountPassed}";
             toolStripStatusLabelCountApplicants.Text = $"Общее число абитуриентов: {stats.ApplicantsCount}";
             toolStripStatusLabelScoreForSuccess.Text = $"Количество проходящих абитуриентов: {stats.ApplicantsCountPassed}";
@@ -72,7 +73,7 @@ namespace AdmissionComitteeDataGrid.Forms
 
             if (addForm.ShowDialog(this) == DialogResult.OK)
             {
-                await applicantStorage.Add(addForm.CurrentApplicant, CancellationToken.None);
+                await applicantManager.Add(addForm.CurrentApplicant, CancellationToken.None);
                 await OnUpdate();
             }
         }
@@ -90,7 +91,7 @@ namespace AdmissionComitteeDataGrid.Forms
             var editForm = new AddOrEditForm(selectedApplicant);
             if (editForm.ShowDialog() == DialogResult.OK)
             {
-                await applicantStorage.Update(editForm.CurrentApplicant, CancellationToken.None);
+                await applicantManager.Update(editForm.CurrentApplicant, CancellationToken.None);
                 await OnUpdate();
             }
         }
@@ -106,7 +107,7 @@ namespace AdmissionComitteeDataGrid.Forms
             var selectedApplicant = (Applicant)dataGridView.SelectedRows[0].DataBoundItem;
             if (MessageBox.Show($"Удалить '{selectedApplicant.FullName}'?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                await applicantStorage.Delete(selectedApplicant.Id, CancellationToken.None);
+                await applicantManager.Delete(selectedApplicant.Id, CancellationToken.None);
                 await OnUpdate();
             }
         }
@@ -124,7 +125,7 @@ namespace AdmissionComitteeDataGrid.Forms
 
         private async Task LoadData()
         {
-            var applicant = await applicantStorage.GetAll(CancellationToken.None);
+            var applicant = await applicantManager.GetAll(CancellationToken.None);
             bindingSource.DataSource = applicant.ToList();
             dataGridView.DataSource = bindingSource;
             await SetStatistics();
@@ -132,7 +133,7 @@ namespace AdmissionComitteeDataGrid.Forms
 
         private async Task OnUpdate()
         {
-            var applicant = await applicantStorage.GetAll(CancellationToken.None);
+            var applicant = await applicantManager.GetAll(CancellationToken.None);
             bindingSource.DataSource = applicant.ToList();
             bindingSource.ResetBindings(false);
             await SetStatistics();

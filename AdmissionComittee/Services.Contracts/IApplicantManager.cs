@@ -3,9 +3,9 @@
 namespace Services.Contracts
 {
     /// <summary>
-    /// Хранилище
+    /// Менеджер абитуриента
     /// </summary>
-    public interface IApplicantStorage
+    public interface IApplicantManager
     {
         /// <summary>
         /// Добавление абитуриента
