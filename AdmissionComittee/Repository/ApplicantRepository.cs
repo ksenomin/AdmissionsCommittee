@@ -23,7 +23,7 @@ namespace Repository
         }
         public async Task<ICollection<Applicant>> GetAll(CancellationToken token)
         {
-            return await context.Set<Applicant>().ToListAsync(token);
+            return await context.Set<Applicant>().AsNoTracking().ToListAsync(token);
         }
         public async Task<Applicant?> GetById(Guid id, CancellationToken token)
         {
