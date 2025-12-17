@@ -56,7 +56,7 @@ namespace Services.Tests
             await applicantManager.Delete(applicant.Id, CancellationToken.None);
 
             // Assert
-            storageMock.Verify(mock => mock.Delete(applicant.Id, CancellationToken.None), Times.Once());
+            storageMock.Verify(mock => mock.Delete(applicant, CancellationToken.None), Times.Once());
             storageMock.VerifyNoOtherCalls();
         }
 

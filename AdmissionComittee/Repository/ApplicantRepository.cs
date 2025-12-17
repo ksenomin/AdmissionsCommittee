@@ -16,14 +16,14 @@ namespace Repository
             context.Add(applicant);
             await context.SaveChangesAsync(token);
         }
-        public async Task Delete(Guid id, CancellationToken token)
+        public async Task Delete(Applicant applicant, CancellationToken token)
         {
-            context.Remove(id);
+            context.Remove(applicant);
             await context.SaveChangesAsync(token);
         }
         public async Task<ICollection<Applicant>> GetAll(CancellationToken token)
         {
-            return await context.Set<Applicant>().ToListAsync(token);
+            return await context.Set<Applicant>().AsNoTracking().ToListAsync(token);
         }
         public async Task<Applicant?> GetById(Guid id, CancellationToken token)
         {
