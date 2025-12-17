@@ -1,5 +1,7 @@
-﻿using AdmissionComitteeDataGrid.Forms;
+﻿using AdmissionComittee.Context;
+using AdmissionComitteeDataGrid.Forms;
 using Microsoft.Extensions.Logging;
+using Repository;
 using Serilog;
 using Services;
 
@@ -34,7 +36,8 @@ namespace AdmissionComitteeDataGrid
             {
                 builder.AddSerilog(loggerConf);
             });
-            Application.Run(new MainForm(new ApplicantManager(new InMemoryStorage(), loggerFactory)));
+            ApplicationConfiguration.Initialize();
+            Application.Run(new MainForm(new ApplicantManager(new ApplicantRepository(new ApplicantContext()), loggerFactory)));
         }
     }
 }

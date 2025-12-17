@@ -26,12 +26,12 @@ namespace Services
         /// <summary>
         /// Добавить запись
         /// </summary>
-        public Task Add(Applicant applicant, CancellationToken token)
+        public async Task Add(Applicant applicant, CancellationToken token)
         {
             var sw = Stopwatch.StartNew();
             try
             {
-                return storage.Add(applicant, token);
+                await storage.Add(applicant, token);
             }
             finally
             {
@@ -43,12 +43,12 @@ namespace Services
         /// <summary>
         /// Удалить запись
         /// </summary>
-        public Task Delete(Guid id, CancellationToken token)
+        public async Task Delete(Guid id, CancellationToken token)
         {
             var sw = Stopwatch.StartNew();
             try
             {
-                return storage.Delete(id, token);
+                await storage.Delete(id, token);
             }
             finally
             {
@@ -77,12 +77,12 @@ namespace Services
         /// <summary>
         /// Получить по id
         /// </summary>
-        public Task<Applicant?> GetById(Guid id, CancellationToken token)
+        public async Task<Applicant?> GetById(Guid id, CancellationToken token)
         {
             var sw = Stopwatch.StartNew();
             try
             {
-                return storage.GetById(id, token);
+                return await storage.GetById(id, token);
             }
             finally
             {
@@ -94,12 +94,12 @@ namespace Services
         /// <summary>
         /// Получить статистику
         /// </summary>
-        public Task<ApplicantStatistics> GetStatistics(CancellationToken token)
+        public async Task<ApplicantStatistics> GetStatistics(CancellationToken token)
         {
             var sw = Stopwatch.StartNew();
             try
             {
-                return storage.GetStatistics(token);
+                return await storage.GetStatistics(token);
             }
             finally
             {
@@ -111,12 +111,12 @@ namespace Services
         /// <summary>
         /// Обновить
         /// </summary>
-        public Task Update(Applicant applicant, CancellationToken token)
+        public async Task Update(Applicant applicant, CancellationToken token)
         {
             var sw = Stopwatch.StartNew();
             try
             {
-                return storage.Update(applicant, token);
+                await storage.Update(applicant, token);
             }
             finally
             {
