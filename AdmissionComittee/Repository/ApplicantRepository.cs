@@ -16,9 +16,9 @@ namespace Repository
             context.Add(applicant);
             await context.SaveChangesAsync(token);
         }
-        public async Task Delete(Guid id, CancellationToken token)
+        public async Task Delete(Applicant applicant, CancellationToken token)
         {
-            context.Remove(id);
+            context.Remove(applicant);
             await context.SaveChangesAsync(token);
         }
         public async Task<ICollection<Applicant>> GetAll(CancellationToken token)

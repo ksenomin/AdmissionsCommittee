@@ -49,13 +49,9 @@ namespace Services
             return Task.CompletedTask;
         }
 
-        Task IApplicantStorage.Delete(Guid id, CancellationToken token)
+        Task IApplicantStorage.Delete(Applicant applicant, CancellationToken token)
         {
-            var applicant = applicants.FirstOrDefault(x => x.Id == id);
-            if (applicant != null)
-            {
-                applicants.Remove(applicant);
-            }
+            applicants.Remove(applicant);
             return Task.CompletedTask;
         }
 

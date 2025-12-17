@@ -16,7 +16,7 @@ namespace Repository.Contracts
         /// <summary>
         /// Удаление абитуриента
         /// </summary>
-        Task Delete(Guid id, CancellationToken token);
+        Task Delete(Applicant applicant, CancellationToken token);
 
         /// <summary>
         /// Получение всех абитуриентов

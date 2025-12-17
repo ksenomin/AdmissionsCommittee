@@ -16,6 +16,6 @@ namespace AdmissionComitte.Web.Models
         /// <summary>
         /// Статистика абитуриетов
         /// </summary>
-        public ApplicantStatistics Statistics { get; set; }
+        public ApplicantStatistics? Statistics { get; set; }
     }
 }

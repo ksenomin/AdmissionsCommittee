@@ -48,7 +48,8 @@ namespace Services
             var sw = Stopwatch.StartNew();
             try
             {
-                await storage.Delete(id, token);
+                var app = await GetById(id, token);
+                await storage.Delete(app, token);
             }
             finally
             {

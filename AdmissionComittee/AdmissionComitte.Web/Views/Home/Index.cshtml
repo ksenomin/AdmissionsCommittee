@@ -33,12 +33,12 @@
             <td>@student.InformaticScore</td>
             <td>
                 <div style="display: flex; gap: 10px;">
-                    <form asp-controller="Home" asp-action="Delete" asp-route-studentId="@student.Id" method="post">
+                    <form asp-controller="Home" asp-action="Delete" asp-route-applicantId="@student.Id" method="post">
                         <button style="margin-right: 30px" class="btn btn-danger btn-sm">
                             Удалить
                         </button>
                     </form>
-                    <a asp-controller="Home" asp-action="EditStudentPage" asp-route-studentId="@student.Id" method="get" class="btn btn-warning btn-sm">
+                    <a asp-controller="Home" asp-action="EditStudentPage" asp-route-applicantId="@student.Id" method="get" class="btn btn-warning btn-sm">
                         Изменить
                     </a>
                 </div>
